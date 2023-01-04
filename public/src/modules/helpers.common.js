@@ -24,6 +24,8 @@ module.exports = function (utils, Benchpress, relative_path) {
 		userAgentIcons,
 		buildAvatar,
 		register,
+		getPredictionColor,
+		formatPrediction,
 		__escape: identity,
 	};
 
@@ -335,6 +337,20 @@ module.exports = function (utils, Benchpress, relative_path) {
 
 		styles.push('background-color: ' + userObj['icon:bgColor'] + ';');
 		return '<span ' + attributes.join(' ') + ' style="' + styles.join(' ') + '">' + userObj['icon:text'] + '</span>';
+	}
+
+	function getPredictionColor(prediction) {
+		prediction = Math.min(Math.max(prediction, 0.0), 1.0);
+
+		let red = (1.0 - prediction) * 255 + prediction * 50;
+		let green = (1.0 - prediction) * 33 + prediction * 219;
+		let blue = (1.0 - prediction) * 89 + prediction * 56;
+
+		return `\"background-color: rgb(${red}, ${green}, ${blue});\"`
+	}
+
+	function formatPrediction(prediction) {
+		return `${(prediction * 100).toFixed(1)}`
 	}
 
 	function register() {

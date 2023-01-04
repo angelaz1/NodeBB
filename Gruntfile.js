@@ -72,6 +72,7 @@ module.exports = function (grunt) {
 			styleUpdated_Client: {
 				files: [
 					'public/less/**/*.less',
+					'themes/**/*.less',
 					...styleUpdated_Client,
 				],
 				options: {
@@ -81,6 +82,7 @@ module.exports = function (grunt) {
 			styleUpdated_Admin: {
 				files: [
 					'public/less/**/*.less',
+					'themes/**/*.less',
 					...styleUpdated_Admin,
 				],
 				options: {
@@ -116,6 +118,7 @@ module.exports = function (grunt) {
 			templatesUpdated: {
 				files: [
 					'src/views/**/*.tpl',
+					'themes/**/*.tpl',
 					...templatesUpdated,
 				],
 				options: {
