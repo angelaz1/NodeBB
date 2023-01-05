@@ -18,7 +18,7 @@ define('forum/career', [
 			}
 		});
 
-		email.on('blur', function() {
+		email.on('blur', function () {
 			if (email.val().length) {
 				validateEmail(email.val());
 			}
@@ -76,7 +76,7 @@ define('forum/career', [
 	function validateName(name) {
 		const name_notify = $('#name-notify');
 
-		if (!name || name.length == 0) {
+		if (!name || name.length === 0) {
 			showError(name_notify, 'Name must be non-empty');
 		} else {
 			showSuccess(name_notify);
@@ -86,7 +86,7 @@ define('forum/career', [
 	function validateEmail(email) {
 		const email_notify = $('#email-notify');
 
-		if (!email || email.length == 0) {
+		if (!email || email.length === 0) {
 			showError(email_notify, 'Email must be non-empty');
 		} else {
 			showSuccess(email_notify);

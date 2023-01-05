@@ -190,8 +190,8 @@ Controllers.register = async function (req, res, next) {
 							<option value="instructor">Instructor</option>
 							<option value="recruiter">Recruiter</option>
 						</select>
-					`
-				}
+					`,
+				},
 			],
 			error: req.flash('error')[0] || errorText,
 			title: '[[pages:register]]',

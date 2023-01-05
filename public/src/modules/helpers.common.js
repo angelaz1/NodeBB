@@ -342,15 +342,15 @@ module.exports = function (utils, Benchpress, relative_path) {
 	function getPredictionColor(prediction) {
 		prediction = Math.min(Math.max(prediction, 0.0), 1.0);
 
-		let red = (1.0 - prediction) * 255 + prediction * 50;
-		let green = (1.0 - prediction) * 33 + prediction * 219;
-		let blue = (1.0 - prediction) * 89 + prediction * 56;
+		const red = ((1.0 - prediction) * 255) + (prediction * 50);
+		const green = ((1.0 - prediction) * 33) + (prediction * 219);
+		const blue = ((1.0 - prediction) * 89) + (prediction * 56);
 
-		return `\"background-color: rgb(${red}, ${green}, ${blue});\"`
+		return `"background-color: rgb(${red}, ${green}, ${blue});"`;
 	}
 
 	function formatPrediction(prediction) {
-		return `${(prediction * 100).toFixed(1)}`
+		return `${(prediction * 100).toFixed(1)}`;
 	}
 
 	function register() {

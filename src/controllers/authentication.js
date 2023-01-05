@@ -104,8 +104,8 @@ authenticationController.register = async function (req, res) {
 			throw new Error('[[error:password-too-long]]');
 		}
 
-		if (!userData['account-type'] || 
-			(userData['account-type'] != 'student' && userData['account-type'] != 'instructor' && userData['account-type'] != 'recruiter')) {
+		if (!userData['account-type'] ||
+			(userData['account-type'] !== 'student' && userData['account-type'] !== 'instructor' && userData['account-type'] !== 'recruiter')) {
 			throw new Error('Invalid account type');
 		}
 

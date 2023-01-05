@@ -31,10 +31,10 @@
         <div class="form-group">
             <label for="gender" class="col-lg-3 control-label">Gender</label>
             <div class="col-lg-9">
-                <select class="form-control" name="gender" aria-label="Gender" value="{gender}">
-                    <option value="M">Male</option>
-                    <option value="F">Female</option>
-                    <option value="O">Other</option>
+                <select class="form-control" name="gender" aria-label="Gender">
+                    <option value="M"<!-- IF (gender=="M") --> selected<!-- END -->>Male</option>
+                    <option value="F"<!-- IF (gender=="F") --> selected<!-- END -->>Female</option>
+                    <option value="O"<!-- IF (gender=="O") --> selected<!-- END -->>Other</option>
                 </select>
                 <span class="register-feedback" id="gender-notify"></span>
             </div>
