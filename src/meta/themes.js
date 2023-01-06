@@ -7,7 +7,6 @@ const _ = require('lodash');
 const fs = require('fs');
 
 const file = require('../file');
-const db = require('../database');
 const Meta = require('./index');
 const events = require('../events');
 const utils = require('../utils');
