@@ -8,7 +8,7 @@ let postSharing: Network[] | null = null;
 interface databaseObjectType {
 	getSetMembers: (key: string) => Promise<string[]>;
 	delete: (key: string) => Promise<void>;
-	setAdd: (key: string, value: any[]) => Promise<void>;
+	setAdd: (key: string, value: string[]) => Promise<void>;
 }
 
 const database = db as databaseObjectType;
