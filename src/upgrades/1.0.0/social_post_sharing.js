@@ -10,11 +10,11 @@ module.exports = {
 	method: function (callback) {
 		const social = require('../../social');
 		async.parallel([
-			function (next) {
-				social.setActivePostSharingNetworks(['facebook', 'google', 'twitter'], next);
+			async function () {
+				await social.setActivePostSharingNetworks(['facebook', 'google', 'twitter']);
 			},
-			function (next) {
-				db.deleteObjectField('config', 'disableSocialButtons', next);
+			async function () {
+				await db.deleteObjectField('config', 'disableSocialButtons');
 			},
 		], callback);
 	},

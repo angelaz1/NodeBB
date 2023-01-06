@@ -6,7 +6,7 @@
 
 NodeBB by itself contains a "common core" of basic functionality, while additional functionality and integrations are enabled through the use of third-party plugins.
 
-This repository is a forked version of the base [NodeBB repository](https://github.com/NodeBB/NodeBB) with modifications to support curriculum use.
+This repository is a forked version of the base [NodeBB repository](https://github.com/NodeBB/NodeBB) with various modifications to support curriculum use.
 
 ### [Demo](https://try.nodebb.org) | [Documentation](https://docs.nodebb.org)
 
@@ -23,9 +23,24 @@ NodeBB's base theme utilizes [Bootstrap 3](http://getbootstrap.com/) but themes 
 
 [Please refer to platform-specific installation documentation](https://docs.nodebb.org/installing/os)
 
-For feature development, we highly recommend you use the suggested [grunt-cli](https://docs.nodebb.org/configuring/running/#grunt-development) to enable file-watching and live refresh.
+For feature development, we highly recommend you install and use the suggested [grunt-cli](https://docs.nodebb.org/configuring/running/#grunt-development) to enable file-watching and live refresh.
 
 When running in a development environment, you can find the API specs for NodeBB at [http://localhost:4567/debug/spec/read](http://localhost:4567/debug/spec/read) and [http://localhost:4567/debug/spec/write](http://localhost:4567/debug/spec/write).
+
+
+## TypeScript
+
+This codebase is in the process of being translated to[TypeScript](https://www.typescriptlang.org/)! During this intermediate stage, translated files will contain both a `.ts` and `.js` file in the repository. Translated files should be edited **only in the `.ts` file**; corresponding `.js` files will be automatically compiled and generated.
+
+If using VSCode, you can remove duplicate files from your Explorer view by adding the following to your `.vscode/settings.json` file:
+```
+{
+    "files.exclude": {
+        "**/*.js": { "when": "$(basename).ts" },
+        "**/**.js": { "when": "$(basename).tsx" }
+    }
+}
+```
 
 ## License
 
@@ -33,13 +48,20 @@ NodeBB is licensed under the **GNU General Public License v3 (GPL-3)** (http://w
 
 ## Helpful Links
 
-* [Demo](https://try.nodebb.org)
+* [NodeBB Demo](https://try.nodebb.org)
 * [Documentation & Installation Instructions](http://docs.nodebb.org)
 * **Frontend Development:**
     * [Benchpress Documentation](https://github.com/benchpressjs/benchpressjs)
     * [Bootstrap 3 Documentation ](http://getbootstrap.com/)
 * **Server Development:**
     * [Node.js Documentation](https://nodejs.org/en/docs/)
+* **Database/Backend:**
+    * [Redis Documentation](https://redis.io/docs/)
+    * [Redis CLI](https://redis.io/docs/manual/cli/)
 * **Linting & Testing:** 
     * [Mocha Documentation](https://mochajs.org/)
     * [ESLint Documentation](https://eslint.org/docs/latest/)
+* **TypeScript:**
+    * [TypeScript for New Programmers](https://www.typescriptlang.org/docs/handbook/typescript-from-scratch.html)
+    * [TypeScript for JavaScript Programmers](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html)
+    * [JavaScript to TypeScript Translation](https://www.typescriptlang.org/docs/handbook/migrating-from-javascript.html#moving-to-typescript-files)
