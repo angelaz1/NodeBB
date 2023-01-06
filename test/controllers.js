@@ -349,7 +349,7 @@ describe('Controllers', () => {
 				jar = await helpers.registerUser({
 					username: utils.generateUUID().slice(0, 10),
 					password: utils.generateUUID(),
-					'account-type': 'student'
+					'account-type': 'student',
 				});
 				token = await helpers.getCsrfToken(jar);
 

@@ -87,7 +87,7 @@ async function buildTargets(targets, parallel, options) {
 	// Compile TypeScript into JavaScript
 	winston.info(`[build] Building TypeScript files`);
 	const execAsync = util.promisify(exec);
-	const { } = await execAsync('npx tsc');
+	await execAsync('npx tsc');
 	winston.info(`[build] TypeScript building complete`);
 
 	async function buildJSTargets() {
