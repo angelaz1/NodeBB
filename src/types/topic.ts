@@ -1,4 +1,4 @@
-import { CategoryObject } from './Category';
+import { CategoryObject } from './category';
 import { TagObject } from './tag';
 import { UserObjectSlim } from './user';
 
