@@ -27,6 +27,7 @@ export async function getPostSharing(): Promise<Network[]> {
 			activated: null,
 		},
 	];
+
 	networks = await plugins.hooks.fire('filter:social.posts', networks);
 	const activated = await db.getSetMembers('social:posts.activated');
 	networks.forEach((network) => {
@@ -35,12 +36,12 @@ export async function getPostSharing(): Promise<Network[]> {
 
 	postSharing = networks;
 	return _.cloneDeep(networks);
-};
+}
 
 export async function getActivePostSharing(): Promise<Network[]> {
 	const networks: Network[] = await getPostSharing();
 	return networks.filter(network => network && network.activated);
-};
+}
 
 export async function setActivePostSharingNetworks(networkIDs: string[]): Promise<void> {
 	postSharing = null;
@@ -49,4 +50,4 @@ export async function setActivePostSharingNetworks(networkIDs: string[]): Promis
 		return;
 	}
 	await db.setAdd('social:posts.activated', networkIDs);
-};
+}

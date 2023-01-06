@@ -49,8 +49,8 @@ module.exports = {
 		{
 			files: ["**/*.ts", "**/*.tsx"],
 			extends: [
-				"eslint:recommended",
-				"plugin:@typescript-eslint/eslint-recommended"
+				"plugin:@typescript-eslint/eslint-recommended",
+				"plugin:@typescript-eslint/recommended-requiring-type-checking"
 			],
 			parser: "@typescript-eslint/parser",
 			plugins: ["@typescript-eslint"],
@@ -59,7 +59,8 @@ module.exports = {
 				project: "./tsconfig.json"
 			},
 			rules: {
-				"@typescript-eslint/no-explicit-any": 0
+				"no-unused-vars": "off",
+				"@typescript-eslint/no-unused-vars": "warn"
 			}
 		}
 	]
