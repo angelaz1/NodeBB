@@ -6,6 +6,7 @@ export type FlagHistoryObject = {
 
 interface History {
   uid: number;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   fields: any;
   meta: Meta[];
   datetime: number;
