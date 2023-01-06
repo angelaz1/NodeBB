@@ -1,19 +1,19 @@
 'use strict';
 
-const _ = require('lodash');
-const plugins = require('./plugins');
-const db = require('./database');
+import _ from 'lodash';
+import plugins from './plugins';
+import db from './database';
 
-const social = module.exports;
+import { Network } from './types';
 
-social.postSharing = null;
+export let postSharing: Network[] | null = null;
 
-social.getPostSharing = async function () {
-	if (social.postSharing) {
-		return _.cloneDeep(social.postSharing);
+export async function getPostSharing(): Promise<Network[]> {
+	if (postSharing) {
+		return _.cloneDeep(postSharing);
 	}
 
-	let networks : { id: string; name: string; class: string; activated: boolean | null; }[] = [
+	let networks : Network[] = [
 		{
 			id: 'facebook',
 			name: 'Facebook',
@@ -33,22 +33,20 @@ social.getPostSharing = async function () {
 		network.activated = activated.includes(network.id);
 	});
 
-	social.postSharing = networks;
+	postSharing = networks;
 	return _.cloneDeep(networks);
 };
 
-social.getActivePostSharing = async function () {
-	const networks = await social.getPostSharing();
+export async function getActivePostSharing(): Promise<Network[]> {
+	const networks: Network[] = await getPostSharing();
 	return networks.filter(network => network && network.activated);
 };
 
-social.setActivePostSharingNetworks = async function (networkIDs) {
-	social.postSharing = null;
+export async function setActivePostSharingNetworks(networkIDs: string[]): Promise<void> {
+	postSharing = null;
 	await db.delete('social:posts.activated');
 	if (!networkIDs.length) {
 		return;
 	}
 	await db.setAdd('social:posts.activated', networkIDs);
 };
-
-require('./promisify')(social);

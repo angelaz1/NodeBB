@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
-    "allowJs": true,
+    "allowJs": false,
     "target": "es6",
     "module": "commonjs",
     "moduleResolution": "node",
-    "esModuleInterop": true
+    "esModuleInterop": true,
   },
   "include": [
     "public/src/**/*.ts",
@@ -12,6 +12,7 @@
     "test/**/*.ts",
   ],
   "exclude":[
-    "./node_modules",
+    "node_modules",
+    "src/types"
   ]
 }
