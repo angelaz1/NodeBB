@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -12,15 +12,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.setActivePostSharingNetworks = exports.getActivePostSharing = exports.getPostSharing = exports.postSharing = void 0;
+exports.setActivePostSharingNetworks = exports.getActivePostSharing = exports.getPostSharing = void 0;
 const lodash_1 = __importDefault(require("lodash"));
 const plugins_1 = __importDefault(require("./plugins"));
 const database_1 = __importDefault(require("./database"));
-exports.postSharing = null;
+let postSharing = null;
 function getPostSharing() {
     return __awaiter(this, void 0, void 0, function* () {
-        if (exports.postSharing) {
-            return lodash_1.default.cloneDeep(exports.postSharing);
+        if (postSharing) {
+            return lodash_1.default.cloneDeep(postSharing);
         }
         let networks = [
             {
@@ -41,12 +41,11 @@ function getPostSharing() {
         networks.forEach((network) => {
             network.activated = activated.includes(network.id);
         });
-        exports.postSharing = networks;
+        postSharing = networks;
         return lodash_1.default.cloneDeep(networks);
     });
 }
 exports.getPostSharing = getPostSharing;
-;
 function getActivePostSharing() {
     return __awaiter(this, void 0, void 0, function* () {
         const networks = yield getPostSharing();
@@ -54,18 +53,14 @@ function getActivePostSharing() {
     });
 }
 exports.getActivePostSharing = getActivePostSharing;
-;
 function setActivePostSharingNetworks(networkIDs) {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log("in!");
-        exports.postSharing = null;
+        postSharing = null;
         yield database_1.default.delete('social:posts.activated');
         if (!networkIDs.length) {
             return;
         }
         yield database_1.default.setAdd('social:posts.activated', networkIDs);
-        console.log("done!");
     });
 }
 exports.setActivePostSharingNetworks = setActivePostSharingNetworks;
-;

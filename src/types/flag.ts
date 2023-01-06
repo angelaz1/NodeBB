@@ -1,54 +1,54 @@
-import { UserObjectSlim } from "./user";
+import { UserObjectSlim } from './user';
 
 export type FlagHistoryObject = {
-    history: History[];
-}
+  history: History[];
+};
 
 interface History {
-    uid:         number;
-    fields:      any;
-    meta:        Meta[];
-    datetime:    number;
-    datetimeISO: string;
-    user:        UserObjectSlim;
+  uid: number;
+  fields: any;
+  meta: Meta[];
+  datetime: number;
+  datetimeISO: string;
+  user: UserObjectSlim;
 }
 
 interface Meta {
-    key:        string;
-    value:      string;
-    labelClass: string;
+  key: string;
+  value: string;
+  labelClass: string;
 }
 
 export type FlagNotesObject = {
-    notes:  Note[];
-}
+  notes: Note[];
+};
 
 
 export interface Note {
-    uid:         number;
-    content:     string;
-    datetime:    number;
-    datetimeISO: string;
-    user:        UserObjectSlim;
+  uid: number;
+  content: string;
+  datetime: number;
+  datetimeISO: string;
+  user: UserObjectSlim;
 }
 
 export type FlagObject = {
-    state:           string;
-    flagId:          number;
-    type:            string;
-    targetId:        number;
-    targetUid:       number;
-    datetime:        number;
-    datetimeISO:     string;
-    target_readable: string;
-    target:          object;
-    assignee:        number;
-    reports:         Reports;
+  state: string;
+  flagId: number;
+  type: string;
+  targetId: number;
+  targetUid: number;
+  datetime: number;
+  datetimeISO: string;
+  target_readable: string;
+  target: object;
+  assignee: number;
+  reports: Reports;
 } | FlagHistoryObject | FlagNotesObject;
 
 export interface Reports {
-    value:        string;
-    timestamp:    number;
-    timestampISO: string;
-    reporter:     UserObjectSlim;
+  value: string;
+  timestamp: number;
+  timestampISO: string;
+  reporter: UserObjectSlim;
 }
