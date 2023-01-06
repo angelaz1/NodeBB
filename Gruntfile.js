@@ -92,6 +92,8 @@ module.exports = function (grunt) {
 				files: [
 					'public/src/**/*.js',
 					'public/vendor/**/*.js',
+					'public/src/**/*.ts',
+					'public/vendor/**/*.ts',
 					...clientUpdated,
 					'node_modules/benchpressjs/build/benchpress.js',
 				],
@@ -107,6 +109,11 @@ module.exports = function (grunt) {
 					'public/src/modules/translator.common.js',
 					'public/src/modules/helpers.common.js',
 					'public/src/utils.common.js',
+					'install/*.ts',
+					'src/**/*.ts',
+					'public/src/modules/translator.common.ts',
+					'public/src/modules/helpers.common.ts',
+					'public/src/utils.common.ts',
 					serverUpdated,
 					'!src/upgrades/**',
 				],
@@ -148,7 +155,7 @@ module.exports = function (grunt) {
 			worker.kill();
 		}
 
-		const execArgv = [];
+		const execArgv = ['-r', 'ts-node/register'];
 		const inspect = process.argv.find(a => a.startsWith('--inspect'));
 
 		if (inspect) {

@@ -57,6 +57,7 @@ function start(options) {
 	// Spawn a new NodeBB process
 	const child = fork(paths.loader, process.argv.slice(3), {
 		env: process.env,
+		execArgv: ['-r', 'ts-node/register'],
 		cwd,
 	});
 	if (options.log) {

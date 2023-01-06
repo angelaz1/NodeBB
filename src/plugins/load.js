@@ -16,29 +16,29 @@ module.exports = function (Plugins) {
 		}
 
 		const handlers = {
-			staticDirs: function (next) {
-				Plugins.data.getStaticDirectories(pluginData, next);
+			staticDirs: async function (next) {
+				next(null, await Plugins.data.getStaticDirectories(pluginData));
 			},
-			cssFiles: function (next) {
-				Plugins.data.getFiles(pluginData, 'css', next);
+			cssFiles: async function (next) {
+				next(null, await Plugins.data.getFiles(pluginData, 'css'));
 			},
-			lessFiles: function (next) {
-				Plugins.data.getFiles(pluginData, 'less', next);
+			lessFiles: async function (next) {
+				next(null, await Plugins.data.getFiles(pluginData, 'less'));
 			},
-			acpLessFiles: function (next) {
-				Plugins.data.getFiles(pluginData, 'acpLess', next);
+			acpLessFiles: async function (next) {
+				next(null, await Plugins.data.getFiles(pluginData, 'acpLess'));
 			},
-			clientScripts: function (next) {
-				Plugins.data.getScripts(pluginData, 'client', next);
+			clientScripts: async function (next) {
+				next(null, await Plugins.data.getScripts(pluginData, 'client'));
 			},
-			acpScripts: function (next) {
-				Plugins.data.getScripts(pluginData, 'acp', next);
+			acpScripts: async function (next) {
+				next(null, await Plugins.data.getScripts(pluginData, 'acp'));
 			},
-			modules: function (next) {
-				Plugins.data.getModules(pluginData, next);
+			modules: async function (next) {
+				next(null, await Plugins.data.getModules(pluginData));
 			},
-			languageData: function (next) {
-				Plugins.data.getLanguageData(pluginData, next);
+			languageData: async function (next) {
+				next(null, await Plugins.data.getLanguageData(pluginData));
 			},
 		};
 
@@ -51,21 +51,24 @@ module.exports = function (Plugins) {
 			methods = handlers;
 		}
 
-		const results = await async.parallel(methods);
+		async.parallel(methods).then((results) => {
+			Object.assign(Plugins.staticDirs, results.staticDirs || {});
 
-		Object.assign(Plugins.staticDirs, results.staticDirs || {});
-		add(Plugins.cssFiles, results.cssFiles);
-		add(Plugins.lessFiles, results.lessFiles);
-		add(Plugins.acpLessFiles, results.acpLessFiles);
-		add(Plugins.clientScripts, results.clientScripts);
-		add(Plugins.acpScripts, results.acpScripts);
-		Object.assign(meta.js.scripts.modules, results.modules || {});
-		if (results.languageData) {
-			Plugins.languageData.languages = _.union(Plugins.languageData.languages, results.languageData.languages);
-			Plugins.languageData.namespaces = _.union(Plugins.languageData.namespaces, results.languageData.namespaces);
-			pluginData.languageData = results.languageData;
-		}
-		Plugins.pluginsData[pluginData.id] = pluginData;
+			add(Plugins.cssFiles, results.cssFiles);
+			add(Plugins.lessFiles, results.lessFiles);
+			add(Plugins.acpLessFiles, results.acpLessFiles);
+			add(Plugins.clientScripts, results.clientScripts);
+			add(Plugins.acpScripts, results.acpScripts);
+			Object.assign(meta.js.scripts.modules, results.modules || {});
+
+			if (results.languageData) {
+				Plugins.languageData.languages = _.union(Plugins.languageData.languages, results.languageData.languages);
+				Plugins.languageData.namespaces = _.union(Plugins.languageData.namespaces, results.languageData.namespaces);
+				pluginData.languageData = results.languageData;
+			}
+
+			Plugins.pluginsData[pluginData.id] = pluginData;
+		});
 	}
 
 	Plugins.prepareForBuild = async function (targets) {

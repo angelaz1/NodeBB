@@ -128,6 +128,7 @@ function forkWorker(index, isPrimary) {
 	const worker = fork(appPath, args, {
 		silent: silent,
 		env: process.env,
+		execArgv: ['-r', 'ts-node/register']
 	});
 
 	worker.index = index;

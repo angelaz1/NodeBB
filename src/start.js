@@ -14,7 +14,6 @@ start.start = async function () {
 		const db = require('./database');
 		await db.init();
 		await db.checkCompatibility();
-
 		const meta = require('./meta');
 		await meta.configs.init();
 
