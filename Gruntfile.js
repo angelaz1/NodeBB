@@ -114,6 +114,17 @@ module.exports = function (grunt) {
 					interval: 1000,
 				},
 			},
+			typescriptUpdated: {
+				files: [
+					'install/*.ts',
+					'src/**/*.ts',
+					'public/src/**/*.ts',
+					'public/vendor/**/*.ts',
+				],
+				options: {
+					interval: 1000,
+				},
+			},
 			templatesUpdated: {
 				files: [
 					'src/views/**/*.tpl',
@@ -170,7 +181,7 @@ module.exports = function (grunt) {
 			compiling = 'clientCSS';
 		} else if (target === 'styleUpdated_Admin') {
 			compiling = 'acpCSS';
-		} else if (target === 'clientUpdated') {
+		} else if (target === 'clientUpdated' || target === 'typescriptUpdated') {
 			compiling = 'js';
 		} else if (target === 'templatesUpdated') {
 			compiling = 'tpl';

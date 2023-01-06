@@ -7,6 +7,8 @@ const _ = require('lodash');
 const path = require('path');
 const mkdirp = require('mkdirp');
 const chalk = require('chalk');
+const { exec } = require('child_process');
+const util = require('util');
 
 const cacheBuster = require('./cacheBuster');
 const { aliases } = require('./aliases');
@@ -81,6 +83,13 @@ async function buildTargets(targets, parallel, options) {
 	const length = Math.max(...targets.map(name => name.length));
 	const jsTargets = targets.filter(target => targetHandlers.javascript.includes(target));
 	const otherTargets = targets.filter(target => !targetHandlers.javascript.includes(target));
+
+	// Compile TypeScript into JavaScript
+	winston.info(`[build] Building TypeScript files`);
+	const execAsync = util.promisify(exec);
+	const { } = await execAsync('npx tsc');
+	winston.info(`[build] TypeScript building complete`);
+
 	async function buildJSTargets() {
 		await Promise.all(
 			jsTargets.map(
