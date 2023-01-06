@@ -13,16 +13,18 @@ social.getPostSharing = async function () {
 		return _.cloneDeep(social.postSharing);
 	}
 
-	let networks = [
+	let networks : { id: string; name: string; class: string; activated: boolean | null; }[] = [
 		{
 			id: 'facebook',
 			name: 'Facebook',
 			class: 'fa-facebook',
+			activated: null,
 		},
 		{
 			id: 'twitter',
 			name: 'Twitter',
 			class: 'fa-twitter',
+			activated: null,
 		},
 	];
 	networks = await plugins.hooks.fire('filter:social.posts', networks);

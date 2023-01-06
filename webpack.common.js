@@ -34,11 +34,14 @@ module.exports = {
 			},
 		},
 	},
+	// Enable sourcemaps for debugging webpack's output.
+	devtool: "source-map",
 	watchOptions: {
 		poll: 500,
 		aggregateTimeout: 250,
 	},
 	resolve: {
+		extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"],
 		symlinks: false,
 		modules: [
 			'build/public/src/modules',
@@ -58,5 +61,13 @@ module.exports = {
 			'jquery-ui/widgets': path.resolve(__dirname, 'node_modules/jquery-ui/ui/widgets'),
 			'ace/ace': path.resolve(__dirname, 'build/public/src/modules/ace-editor.js'),
 		},
+	},
+	module: {
+		rules: [
+		  // All files with a '.ts' or '.tsx' extension will be handled by 'ts-loader'.
+		  { test: /\.tsx?$/, loader: "ts-loader" },
+		  // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
+		  { test: /\.js$/, loader: "source-map-loader" },
+		],
 	},
 };

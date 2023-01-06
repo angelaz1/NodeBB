@@ -35,6 +35,7 @@ module.exports = function (grunt) {
 		watch: {},
 	});
 
+	grunt.loadNpmTasks("grunt-ts");
 	grunt.loadNpmTasks('grunt-contrib-watch');
 
 	grunt.registerTask('default', ['watch']);
@@ -104,6 +105,7 @@ module.exports = function (grunt) {
 					'app.js',
 					'install/*.js',
 					'src/**/*.js',
+					'src/**/*.ts',
 					'public/src/modules/translator.common.js',
 					'public/src/modules/helpers.common.js',
 					'public/src/utils.common.js',
