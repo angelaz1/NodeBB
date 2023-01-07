@@ -1,4 +1,4 @@
-name: Lint
+name: Lint and test
 
 on:
   push:
@@ -16,7 +16,7 @@ permissions:
   contents: read
 
 jobs:
-  lint:
+  test:
     permissions:
       checks: write  # for coverallsapp/github-action to create new checks
       contents: read  # for actions/checkout to fetch code
@@ -30,6 +30,13 @@ jobs:
     env:
       TEST_ENV: ${{ matrix.test_env || 'production' }}
 
+    services:
+      mongo:
+        image: 'mongo:3.7'
+        ports:
+          # Maps port 27017 on service container to the host
+          - 27017:27017
+
     steps:
       - uses: actions/checkout@v2
 
@@ -39,12 +46,12 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node }}
-      
+
       - name: NPM Install
         uses: bahmutov/npm-install@v1
         with:
           useLockFile: false
-      
+
       - name: Setup on MongoDB
         env:
           SETUP: >-
@@ -55,6 +62,7 @@ jobs:
               "admin:email": "test@example.org",
               "admin:password": "hAN3Eg8W",
               "admin:password:confirm": "hAN3Eg8W",
+
               "database": "mongo",
               "mongo:host": "127.0.0.1",
               "mongo:port": 27017,
@@ -70,11 +78,6 @@ jobs:
             }
         run: |
           node app --setup="${SETUP}" --ci="${CI}"
-
-      - name: NPM Install
-        uses: bahmutov/npm-install@v1
-        with:
-          useLockFile: false
 
       - name: Run ESLint
         run: npm run lint
