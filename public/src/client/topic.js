@@ -186,7 +186,7 @@ define('forum/topic', [
 		const dropdownEl = this.querySelector('.dropdown-menu');
 		const dropdownStyle = window.getComputedStyle(dropdownEl);
 		const dropdownHeight = dropdownStyle.getPropertyValue('height').slice(0, -2);
-		const offset = document.documentElement.style.getPropertyValue('--panel-offset').slice(0, -2);
+		const offset = 60;
 
 		// Toggler position (including its height, since the menu spawns above it),
 		// minus the dropdown's height and navbar offset

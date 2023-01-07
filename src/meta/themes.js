@@ -7,7 +7,6 @@ const _ = require('lodash');
 const fs = require('fs');
 
 const file = require('../file');
-const db = require('../database');
 const Meta = require('./index');
 const events = require('../events');
 const utils = require('../utils');
@@ -89,9 +88,6 @@ Themes.set = async (data) => {
 	switch (data.type) {
 		case 'local': {
 			const current = await Meta.configs.get('theme:id');
-			await db.sortedSetRemove('plugins:active', current);
-			const numPlugins = await db.sortedSetCard('plugins:active');
-			await db.sortedSetAdd('plugins:active', numPlugins, data.id);
 
 			if (current !== data.id) {
 				const pathToThemeJson = path.join(nconf.get('themes_path'), data.id, 'theme.json');
@@ -101,16 +97,6 @@ Themes.set = async (data) => {
 
 				let config = await fs.promises.readFile(pathToThemeJson, 'utf8');
 				config = JSON.parse(config);
-				const activePluginsConfig = nconf.get('plugins:active');
-				if (!activePluginsConfig) {
-					await db.sortedSetRemove('plugins:active', current);
-					const numPlugins = await db.sortedSetCard('plugins:active');
-					await db.sortedSetAdd('plugins:active', numPlugins, data.id);
-				} else if (!activePluginsConfig.includes(data.id)) {
-					// This prevents changing theme when configuration doesn't include it, but allows it otherwise
-					winston.error('When defining active plugins in configuration, changing themes requires adding the new theme to the list of active plugins before updating it in the ACP');
-					throw new Error('[[error:theme-not-set-in-configuration]]');
-				}
 
 				// Re-set the themes path (for when NodeBB is reloaded)
 				Themes.setPath(config);
