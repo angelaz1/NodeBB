@@ -38,4 +38,4 @@ export type RoomObjectFull = {
   maximumChatMessageLength: number;
   showUserInput: boolean;
   isAdminOrGlobalMod: boolean;
-} | RoomObject | MessageObject;
+} & RoomObject & MessageObject;
