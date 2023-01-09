@@ -17,6 +17,7 @@ jobs:
     permissions:
       checks: write
       contents: read
+      pull-requests: write
     name: Homework 1
     strategy:
       fail-fast: false
