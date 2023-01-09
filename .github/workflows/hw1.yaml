@@ -1,9 +1,6 @@
-name: Lint
+name: Homework 1 Check
 
 on:
-  push:
-    branches:
-      - master
   pull_request:
     branches:
       - master
@@ -79,5 +76,18 @@ jobs:
         run: |
           node app --setup="${SETUP}" --ci="${CI}"
 
-      - name: Run ESLint
-        run: npm run lint
+      - name: Get specific changed files
+        id: changed-files-specific
+        uses: tj-actions/changed-files@v24
+        with:
+          files: |
+            *.js
+            *.ts
+      
+      - name: Comment changed files
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          message: |
+            Added files (you should see your TypeScript file here): ${{ steps.changed-files-specific.outputs.added_files }}
+            Modified files (you should see the compiled JavaScript file here): ${{ steps.changed-files-specific.outputs.modified_files }}
+            To get full credit for HW1, both the linting and testing Github Actions should succeed on this pull request.

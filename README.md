@@ -42,6 +42,19 @@ If using VSCode, you can remove duplicate files from your Explorer view by addin
 }
 ```
 
+## Development Tools
+This repository comes with tools for linting (ESLint), testing (Mocha), and coverage reporting (nyc). All of these tools can be run locally:
+```
+% npm run lint      // Runs the linter
+% npm run test      // Runs test suite + generates coverage report
+```
+
+The first time you run the test command, it will ask you to provide a configuration for a test database. Depending on your local database setup (likely Redis), follow the instructions to add a test database configuration to `config.json`, then re-run the command.
+
+After running the test suite, you can find the coverage report generated in the `coverage` directory. This can be viewed in the browser by opening the `index.html` file in this directory.
+
+If you want to directly run the linting and testing commands with specific configurations (i.e. only running the test suite on specific files, using `--fix` with eslint), you can find the underlying commands are in the `package.json` file.
+
 ## License
 
 NodeBB is licensed under the **GNU General Public License v3 (GPL-3)** (http://www.gnu.org/copyleft/gpl.html).
@@ -61,6 +74,7 @@ NodeBB is licensed under the **GNU General Public License v3 (GPL-3)** (http://w
 * **Linting & Testing:** 
     * [Mocha Documentation](https://mochajs.org/)
     * [ESLint Documentation](https://eslint.org/docs/latest/)
+    * [nyc Test Coverage Documentation](https://www.npmjs.com/package/nyc)
 * **TypeScript:**
     * [TypeScript for New Programmers](https://www.typescriptlang.org/docs/handbook/typescript-from-scratch.html)
     * [TypeScript for JavaScript Programmers](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html)
