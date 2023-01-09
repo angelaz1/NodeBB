@@ -94,7 +94,8 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `Added files (you should see your TypeScript file here): ${{ steps.changed-files-specific.outputs.added_files }}\n
-                     Modified files (you should see the compiled JavaScript file here): ${{ steps.changed-files-specific.outputs.modified_files }}\n
-                     To get full credit for HW1, both the linting and testing Github Actions should succeed on this pull request.`
+              body: `:wave: Hello! This is your HW1 report:\n
+              Added files (you should see your TypeScript file here): ${{ steps.changed-files-specific.outputs.added_files }}\n
+              Modified files (you should see the compiled JavaScript file here): ${{ steps.changed-files-specific.outputs.modified_files }}\n
+              To get full credit on your implementation for HW1, both the linting and testing Github Actions must also succeed on this pull request.`
             })
