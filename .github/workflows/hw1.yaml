@@ -13,11 +13,11 @@ permissions:
   contents: read
 
 jobs:
-  test:
+  hw1:
     permissions:
-      checks: write  # for coverallsapp/github-action to create new checks
-      contents: read  # for actions/checkout to fetch code
-    name: Lint
+      checks: write
+      contents: read
+    name: Homework 1
     strategy:
       fail-fast: false
       matrix:
@@ -87,6 +87,7 @@ jobs:
       - name: Comment changed files
         uses: thollander/actions-comment-pull-request@v2
         with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           message: |
             Added files (you should see your TypeScript file here): ${{ steps.changed-files-specific.outputs.added_files }}
             Modified files (you should see the compiled JavaScript file here): ${{ steps.changed-files-specific.outputs.modified_files }}
