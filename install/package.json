@@ -12,7 +12,7 @@
     "scripts": {
         "start": "node loader.js",
         "lint": "eslint --cache ./nodebb .",
-        "test": "nyc --reporter=html --reporter=text-summary mocha",
+        "test": "npx tsc && nyc --reporter=html --reporter=text-summary mocha",
         "coverage": "nyc report --reporter=text-lcov > ./coverage/lcov.info",
         "coveralls": "nyc report --reporter=text-lcov | coveralls && rm -r coverage"
     },
@@ -152,6 +152,7 @@
         "@apidevtools/swagger-parser": "10.0.3",
         "@commitlint/cli": "17.3.0",
         "@commitlint/config-angular": "17.3.0",
+        "@types/express": "^4.17.15",
         "@typescript-eslint/eslint-plugin": "^5.48.0",
         "@typescript-eslint/parser": "^5.48.0",
         "coveralls": "3.1.1",
