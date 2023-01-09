@@ -85,10 +85,15 @@ jobs:
             *.ts
       
       - name: Comment changed files
-        uses: thollander/actions-comment-pull-request@v2
+        uses: actions/github-script@v5
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          message: |
-            Added files (you should see your TypeScript file here): ${{ steps.changed-files-specific.outputs.added_files }}
-            Modified files (you should see the compiled JavaScript file here): ${{ steps.changed-files-specific.outputs.modified_files }}
-            To get full credit for HW1, both the linting and testing Github Actions should succeed on this pull request.
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `Added files (you should see your TypeScript file here): ${{ steps.changed-files-specific.outputs.added_files }}\n
+                     Modified files (you should see the compiled JavaScript file here): ${{ steps.changed-files-specific.outputs.modified_files }}\n
+                     To get full credit for HW1, both the linting and testing Github Actions should succeed on this pull request.`
+            })
