@@ -10,9 +10,6 @@
     "type": "git",
     "url": "https://github.com/NodeBB/nodebb-theme-persona"
   },
-  "scripts": {
-    "lint": "eslint ."
-  },
   "keywords": [
     "nodebb",
     "theme",
@@ -40,14 +37,5 @@
   "license": "BSD-2-Clause",
   "bugs": {
     "url": "https://github.com/NodeBB/nodebb-theme-persona/issues"
-  },
-  "dependencies": {
-    "pulling": "^2.0.0",
-    "striptags": "^3.2.0"
-  },
-  "devDependencies": {
-    "eslint": "^7.32.0",
-    "eslint-config-nodebb": "^0.0.2",
-    "eslint-plugin-import": "^2.24.2"
   }
 }

@@ -11,7 +11,6 @@
 		var app = {
 			user: JSON.parse('{{userJSON}}')
 		};
-		document.documentElement.style.setProperty('--panel-offset', `${localStorage.getItem('panelOffset') || 0}px`);
 	</script>
 
 	{{{if useCustomHTML}}}

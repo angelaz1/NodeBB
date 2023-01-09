@@ -7,31 +7,9 @@ $(document).ready(function () {
 	setupMobileMenu();
 	setupQuickReply();
 	configureNavbarHiding();
-	updatePanelOffset();
 
 	$(window).on('resize', utils.debounce(configureNavbarHiding, 200));
 	$(window).on('resize', updatePanelOffset);
-
-	function updatePanelOffset() {
-		const headerEl = document.getElementById('header-menu');
-
-		if (!headerEl) {
-			console.warn('[persona/updatePanelOffset] Could not find #header-menu, panel offset unchanged.');
-			return;
-		}
-
-		const headerRect = headerEl.getBoundingClientRect();
-		const headerStyle = window.getComputedStyle(headerEl);
-
-		let offset =
-			headerRect.y + headerRect.height +
-			(parseInt(headerStyle.marginTop, 10) || 0) +
-			(parseInt(headerStyle.marginBottom, 10) || 0);
-
-		offset = Math.max(0, offset);
-		document.documentElement.style.setProperty('--panel-offset', `${offset}px`);
-		localStorage.setItem('panelOffset', offset);
-	}
 
 	var lastBSEnv = '';
 	function configureNavbarHiding() {
