@@ -96,7 +96,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: `:wave: Hello! This is your HW1 report\n
-              Added TS files (you should see your newly created xx.ts file here): ${{ steps.changed-files-specific.outputs.added_files }}\n
+              Added TS files (you should see yo ur newly created xx.ts file here): ${{ steps.changed-files-specific.outputs.added_files }}\n
               Modified JS files (you should see the compiler-generated xx.js file here): ${{ steps.changed-files-specific.outputs.modified_files }}\n
               To get full credit on your implementation for HW1, both the linting and testing Github Actions must also succeed on this pull request.`
             })
