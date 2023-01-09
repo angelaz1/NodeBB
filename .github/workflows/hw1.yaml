@@ -1,9 +1,6 @@
-name: Lint
+name: Homework 1 Check
 
 on:
-  push:
-    branches:
-      - master
   pull_request:
     branches:
       - master
@@ -16,11 +13,12 @@ permissions:
   contents: read
 
 jobs:
-  lint:
+  hw1:
     permissions:
-      checks: write  # for coverallsapp/github-action to create new checks
-      contents: read  # for actions/checkout to fetch code
-    name: Lint
+      checks: write
+      contents: read
+      pull-requests: write
+    name: Homework 1
     strategy:
       fail-fast: false
       matrix:
@@ -79,5 +77,26 @@ jobs:
         run: |
           node app --setup="${SETUP}" --ci="${CI}"
 
-      - name: Run ESLint
-        run: npm run lint
+      - name: Get specific changed files
+        id: changed-files-specific
+        uses: tj-actions/changed-files@v24
+        with:
+          files: |
+            *.js
+            *.ts
+      
+      - name: Comment changed files
+        if: steps.changed-files-specific.outputs.any_changed == 'true'
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `:wave: Hello! This is your HW1 report\n
+              Added files (you should see your newly created xx.ts file here): ${{ steps.changed-files-specific.outputs.added_files }}\n
+              Modified files (you should see the compiler-generated xx.js file here): ${{ steps.changed-files-specific.outputs.modified_files }}\n
+              To get full credit on your implementation for HW1, both the linting and testing Github Actions must also succeed on this pull request. You should see a green checkmark below.`
+            })
