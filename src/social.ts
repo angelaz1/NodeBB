@@ -5,13 +5,6 @@ import db from './database';
 import { Network } from './types';
 
 let postSharing: Network[] | null = null;
-interface databaseObjectType {
-	getSetMembers: (key: string) => Promise<string[]>;
-	delete: (key: string) => Promise<void>;
-	setAdd: (key: string, value: string[]) => Promise<void>;
-}
-
-const database = db as databaseObjectType;
 
 export async function getPostSharing(): Promise<Network[]> {
 	if (postSharing) {
@@ -34,7 +27,10 @@ export async function getPostSharing(): Promise<Network[]> {
 	];
 
 	networks = await plugins.hooks.fire('filter:social.posts', networks) as Network[];
-	const activated = await database.getSetMembers('social:posts.activated');
+
+	// The next line calls a module that has not been updated to TS yet
+	// eslint-disable-next-line
+	const activated: string[] = await db.getSetMembers('social:posts.activated');
 
 	networks.forEach((network) => {
 		network.activated = activated.includes(network.id);
@@ -51,9 +47,16 @@ export async function getActivePostSharing(): Promise<Network[]> {
 
 export async function setActivePostSharingNetworks(networkIDs: string[]): Promise<void> {
 	postSharing = null;
-	await database.delete('social:posts.activated');
+
+	// The next line calls a module that has not been updated to TS yet
+	// eslint-disable-next-line
+	await db.delete('social:posts.activated');
+
 	if (!networkIDs.length) {
 		return;
 	}
-	await database.setAdd('social:posts.activated', networkIDs);
+
+	// The next line calls a module that has not been updated to TS yet
+	// eslint-disable-next-line
+	await db.setAdd('social:posts.activated', networkIDs);
 }

@@ -25,13 +25,13 @@ export type UserObjectSlim = {
   banned_until_readable: string;
 };
 
-export type UserObjectACP = UserObjectSlim | {
+export type UserObjectACP = UserObjectSlim & {
   administrator: boolean;
   ip: string;
   ips: string[];
 };
 
-export type UserObject = UserObjectSlim | {
+export type UserObject = UserObjectSlim & {
   email: string;
   fullname: string;
   location: string;
@@ -51,7 +51,7 @@ export type UserObject = UserObjectSlim | {
   groupTitleArray: string[];
 };
 
-export type UserObjectFull = UserObject | {
+export type UserObjectFull = UserObject & {
   aboutmeParsed: string;
   age: number;
   emailClass: string;

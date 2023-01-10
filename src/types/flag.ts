@@ -45,7 +45,7 @@ export type FlagObject = {
   target: object;
   assignee: number;
   reports: Reports;
-} | FlagHistoryObject | FlagNotesObject;
+} & FlagHistoryObject & FlagNotesObject;
 
 export interface Reports {
   value: string;

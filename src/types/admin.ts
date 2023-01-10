@@ -17,7 +17,7 @@ export type Stat = {
   monthIncrease: string;
   monthTextClass: string;
   name: string;
-} | StatOptionalProperties;
+} & StatOptionalProperties;
 
 export type StatOptionalProperties = {
   name: string;

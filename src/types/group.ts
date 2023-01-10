@@ -27,7 +27,7 @@ export type GroupDataObject = {
   memberPostCidsArray: number[];
 };
 
-export type GroupFullObject = GroupDataObject | GroupFullObjectProperties;
+export type GroupFullObject = GroupDataObject & GroupFullObjectProperties;
 
 export type GroupFullObjectProperties = {
   descriptionParsed: string;

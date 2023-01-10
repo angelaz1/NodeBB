@@ -36,7 +36,9 @@ function getPostSharing() {
                 activated: null,
             },
         ];
-        networks = yield plugins_1.default.hooks.fire('filter:social.posts', networks);
+        networks = (yield plugins_1.default.hooks.fire('filter:social.posts', networks));
+        // The next line calls a module that has not been updated to TS yet
+        // eslint-disable-next-line
         const activated = yield database_1.default.getSetMembers('social:posts.activated');
         networks.forEach((network) => {
             network.activated = activated.includes(network.id);
@@ -56,10 +58,14 @@ exports.getActivePostSharing = getActivePostSharing;
 function setActivePostSharingNetworks(networkIDs) {
     return __awaiter(this, void 0, void 0, function* () {
         postSharing = null;
+        // The next line calls a module that has not been updated to TS yet
+        // eslint-disable-next-line
         yield database_1.default.delete('social:posts.activated');
         if (!networkIDs.length) {
             return;
         }
+        // The next line calls a module that has not been updated to TS yet
+        // eslint-disable-next-line
         yield database_1.default.setAdd('social:posts.activated', networkIDs);
     });
 }
