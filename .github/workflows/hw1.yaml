@@ -87,9 +87,9 @@ jobs:
       
       - name: Comment changed files
         if: steps.changed-files-specific.outputs.any_changed == 'true'
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
+          github-token: ${{secrets.WORKFLOW_TOKEN}}
           script: |
             github.rest.issues.createComment({
               issue_number: context.issue.number,
