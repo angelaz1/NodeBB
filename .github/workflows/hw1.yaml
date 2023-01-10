@@ -82,8 +82,8 @@ jobs:
         uses: tj-actions/changed-files@v24
         with:
           files: |
-            *.js
-            *.ts
+            ./**/*.js
+            ./**/*.ts
       
       - name: Comment changed files
         if: steps.changed-files-specific.outputs.any_changed == 'true'
