@@ -27,6 +27,7 @@ export async function getPostSharing(): Promise<Network[]> {
 	];
 
 	networks = await plugins.hooks.fire('filter:social.posts', networks) as Network[];
+
 	// The next line calls a module that has not been updated to TS yet
 	// eslint-disable-next-line
 	const activated: string[] = await db.getSetMembers('social:posts.activated');
