@@ -17,7 +17,6 @@ jobs:
     permissions:
       checks: write
       contents: read
-      pull-requests: write
     name: Homework 1
     strategy:
       fail-fast: false
@@ -84,19 +83,38 @@ jobs:
           files: |
             ./**/*.js
             ./**/*.ts
-      
-      - name: Comment changed files
-        if: steps.changed-files-specific.outputs.any_changed == 'true'
-        uses: actions/github-script@v6
-        with:
-          github-token: ${{secrets.WORKFLOW_TOKEN}}
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: `:wave: Hello! This is your HW1 report\n
-              Added files (you should see your newly created xx.ts file here): ${{ steps.changed-files-specific.outputs.added_files }}\n
-              Modified files (you should see the compiler-generated xx.js file here): ${{ steps.changed-files-specific.outputs.modified_files }}\n
-              To get full credit on your implementation for HW1, both the linting and testing Github Actions must also succeed on this pull request. You should see a green checkmark below.`
-            })
+            
+      - name: Check that HW1 specifications are met
+        run: |
+          IFS=' ' read -r -a addedarray <<< ${{ steps.changed-files-specific.outputs.added_files }}
+          IFS=' ' read -r -a modifiedarray <<< ${{ steps.changed-files-specific.outputs.modified_files }}
+
+          PASS=false
+          for addedfile in "${addedarray[@]}"
+          do
+              IFS='. ' read -r -a addfilesplit <<< $addedfile
+              ADDFILENAME="${addfilesplit[0]}"
+              ADDFILEEXT="${addfilesplit[1]}"
+
+              if [ "$ADDFILEEXT" == "ts" ]
+              then
+                  for modifiedfile in "${modifiedarray[@]}"
+                  do
+                      IFS='. ' read -r -a modfilesplit <<< $modifiedfile
+                      MODFILENAME="${modfilesplit[0]}"
+                      MODFILEEXT="${modfilesplit[1]}"
+
+                      if [ "$MODFILEEXT" == "js" ] && [ "$ADDFILENAME" == "$MODFILENAME" ]
+                      then
+                          echo "Found suitable file!"
+                          PASS=true
+                      fi
+                  done
+              fi
+          done
+
+          if [ !$PASS ]
+          then
+              echo "No suitable files found that match the requirements of HW1. Please check that you have translated a JS file into TypeScript and regenerated the JavaScript file using % npx tsc"
+              exit 1
+          fi
