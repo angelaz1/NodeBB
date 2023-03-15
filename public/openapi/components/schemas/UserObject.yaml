@@ -29,6 +29,10 @@ UserObject:
       type: number
       description: A UNIX timestamp representing the moment the user's account was created
       example: 1585337827953
+    accounttype:
+      type: string
+      description: Type of the user account
+      example: student
     lastonline:
       type: number
       description: A UNIX timestamp representing the moment the user was last recorded online on this site
@@ -229,6 +233,10 @@ UserObjectFull:
       type: number
       description: A UNIX timestamp representing the moment the user's account was created
       example: 1585337827953
+    accounttype:
+      type: string
+      description: Type of the user account
+      example: student
     lastonline:
       type: number
       description: A UNIX timestamp representing the moment the user was last recorded online on this site
@@ -570,6 +578,10 @@ UserObjectSlim:
       type: number
       description: A UNIX timestamp representing the moment the user's account was created
       example: 1585337827953
+    accounttype:
+      type: string
+      description: Type of the user account
+      example: student
     'icon:text':
       type: string
       description: A single-letter representation of a username. This is used in the auto-generated icon given to users without an avatar
@@ -626,6 +638,10 @@ UserObjectACP:
       type: number
       description: A UNIX timestamp representing the moment the user's account was created
       example: 1585337827953
+    accounttype:
+      type: string
+      description: Type of the user account
+      example: student
     banned:
       type: number
       description: A Boolean representing whether a user is banned or not

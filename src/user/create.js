@@ -18,6 +18,9 @@ module.exports = function (User) {
 		if (data.email !== undefined) {
 			data.email = String(data.email).trim();
 		}
+		if (data.accounttype !== undefined) {
+			data.accounttype = data.accounttype.trim();
+		}
 
 		await User.isDataValid(data);
 

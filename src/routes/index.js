@@ -88,7 +88,9 @@ _mounts.category = (app, name, middleware, controllers) => {
 };
 
 _mounts.career = (app, name, middleware, controllers) => {
-	setupPageRoute(app, '/career', [middleware.ensureLoggedIn], controllers.career.get);
+	const middlewares = [middleware.ensureLoggedIn];
+
+	setupPageRoute(app, `/${name}`, middlewares, controllers.career.get);
 };
 
 _mounts.users = (app, name, middleware, controllers) => {

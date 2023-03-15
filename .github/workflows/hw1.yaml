@@ -1,0 +1,102 @@
+name: Homework 1 Check
+
+on:
+  pull_request:
+    branches:
+      - master
+
+defaults:
+  run:
+    shell: bash
+
+permissions:
+  contents: read
+
+jobs:
+  hw1:
+    permissions:
+      checks: write
+      contents: read
+      pull-requests: write
+    name: Homework 1
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        node: [14]
+    runs-on: ${{ matrix.os }}
+    env:
+      TEST_ENV: ${{ matrix.test_env || 'production' }}
+
+    services:
+      mongo:
+        image: 'mongo:3.7'
+        ports:
+          # Maps port 27017 on service container to the host
+          - 27017:27017
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - run: cp install/package.json package.json
+
+      - name: Install Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: NPM Install
+        uses: bahmutov/npm-install@v1
+        with:
+          useLockFile: false
+
+      - name: Setup on MongoDB
+        env:
+          SETUP: >-
+            {
+              "url": "http://127.0.0.1:4567",
+              "secret": "abcdef",
+              "admin:username": "admin",
+              "admin:email": "test@example.org",
+              "admin:password": "hAN3Eg8W",
+              "admin:password:confirm": "hAN3Eg8W",
+
+              "database": "mongo",
+              "mongo:host": "127.0.0.1",
+              "mongo:port": 27017,
+              "mongo:username": "",
+              "mongo:password": "",
+              "mongo:database": "nodebb"
+            }
+          CI: >-
+            {
+              "host": "127.0.0.1",
+              "port": 27017,
+              "database": "ci_test"
+            }
+        run: |
+          node app --setup="${SETUP}" --ci="${CI}"
+
+      - name: Get specific changed files
+        id: changed-files-specific
+        uses: tj-actions/changed-files@v24
+        with:
+          files: |
+            ./**/*.js
+            ./**/*.ts
+      
+      - name: Comment changed files
+        if: steps.changed-files-specific.outputs.any_changed == 'true'
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `:wave: Hello! This is your HW1 report\n
+              Added files (you should see your newly created xx.ts file here): ${{ steps.changed-files-specific.outputs.added_files }}\n
+              Modified files (you should see the compiler-generated xx.js file here): ${{ steps.changed-files-specific.outputs.modified_files }}\n
+              To get full credit on your implementation for HW1, both the linting and testing Github Actions must also succeed on this pull request. You should see a green checkmark below.`
+            })
