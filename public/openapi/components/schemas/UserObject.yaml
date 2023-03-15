@@ -13,6 +13,10 @@ UserObject:
       type: string
       description: An URL-safe variant of the username (i.e. lower-cased, spaces removed, etc.)
       example: dragon-fruit
+    accounttype:
+      type: string
+      description: Type of account
+      example: student
     email:
       type: string
       description: Email address associated with the user account
@@ -163,6 +167,7 @@ UserObject:
     - uid
     - username
     - userslug
+    - accounttype
     - 'email:confirmed'
     - joindate
     - lastonline
@@ -212,6 +217,10 @@ UserObjectFull:
       type: string
       description: An URL-safe variant of the username (i.e. lower-cased, spaces removed, etc.)
       example: dragon-fruit
+    accounttype:
+      type: string
+      description: Type of account
+      example: student
     email:
       type: string
       description: Email address associated with the user account
@@ -513,6 +522,10 @@ UserObjectSlim:
       type: string
       description: A friendly name for a given user account
       example: Dragon Fruit
+    accounttype:
+      type: string
+      description: Type of account
+      example: student
     displayname:
       type: string
       description: This is either username or fullname depending on forum and user settings
@@ -602,6 +615,10 @@ UserObjectACP:
       type: string
       description: A friendly name for a given user account
       example: Dragon Fruit
+    accounttype:
+      type: string
+      description: Type of account
+      example: student
     displayname:
       type: string
       description: This is either username or fullname depending on forum and user settings

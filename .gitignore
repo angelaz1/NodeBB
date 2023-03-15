@@ -82,3 +82,9 @@ theme/*.sublime-workspace
 theme/.idea
 theme/.vscode
 theme/node_modules/
+
+# Build Ignore
+build
+
+# Database Ignore
+dump.rdb
